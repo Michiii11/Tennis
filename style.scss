@@ -1,0 +1,48 @@
+$bg: hsl(var(--hue),10%,90%);
+
+* {
+  text-align: center;
+  color-scheme: dark;
+  background-color: $bg;
+  font: 1em/1.5 "Nunito", sans-serif;
+}
+
+
+//region itn rechner
+input{
+  border: none;
+  border-bottom: 1px solid hsl(0, 0, 20);
+  transition: all .1s ease;
+
+  &:focus{
+    border: none;
+    border-bottom: 1px solid hsl(0, 0, 200);
+  }
+}
+
+button{
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.buttons{
+  display: flex;
+  justify-content: center;
+
+  button{
+    margin: 2rem;
+    width: 20%;
+    padding: .5rem 1.5rem;
+    border-radius: .2rem;
+    cursor: pointer;
+    border: 1px solid tomato;
+
+    &:hover{
+      background-color: tomato;
+    }
+
+    &.active{
+
+    }
+  }
+}
