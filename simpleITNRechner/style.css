@@ -45,7 +45,7 @@ aside {
   color: white;
   width: 20vw;
   height: 100vh;
-  background: url("../img/sand.jpg");
+  background: url("img/sand.jpg");
 }
 
 nav {
@@ -153,20 +153,28 @@ button {
   padding: 0.5rem 1rem;
   font-weight: bold;
   border-radius: 0.5rem;
+  transition: all 0.2s ease;
 }
 button.filled {
   background-color: #CA502A;
   color: white;
   border: none;
 }
+button.filled:hover {
+  filter: brightness(110%);
+}
 button.outlined {
   background-color: white;
   border: 1px solid #CA502A;
   color: #CA502A;
 }
+button.outlined:hover {
+  filter: brightness(90%);
+}
 
 div.calcButtons {
   display: flex;
+  justify-content: space-between;
   margin-bottom: 15vh;
 }
 

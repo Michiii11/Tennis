@@ -22,7 +22,7 @@ button {
 
 .buttons {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 .buttons button {
   margin: 2rem;

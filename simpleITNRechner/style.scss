@@ -51,7 +51,7 @@ aside{
   color: white;
   width: 20vw;
   height: 100vh;
-  background: url("../img/sand.jpg");
+  background: url("img/sand.jpg");
 }
 
 // Navigation
@@ -172,14 +172,14 @@ button{
   padding: .5rem 1rem;
   font-weight: bold;
   border-radius: .5rem;
+  transition: all .2s ease;
 
   &.filled{
     background-color: $primary;
     color: white;
     border: none;
-
     &:hover{
-
+      filter: brightness(110%);
     }
   }
 
@@ -187,10 +187,14 @@ button{
     background-color: white;
     border: 1px solid $primary;
     color: $primary;
+    &:hover{
+      filter: brightness(90%);
+    }
   }
 }
 
 div.calcButtons{
   display: flex;
+  justify-content: space-between;
   margin-bottom: 15vh;
 }
