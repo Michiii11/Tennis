@@ -1,0 +1,173 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;700;800&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Nunito", sans-serif;
+}
+
+img {
+  width: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: hsl(234, 100%, 81%);
+  color: hsl(234, 58%, 17%);
+}
+
+a {
+  text-decoration: none;
+  font: inherit;
+  color: inherit;
+}
+
+body {
+  display: flex;
+}
+
+main {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+aside {
+  font-size: 2rem;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  width: 20vw;
+  height: 100vh;
+  background: url("../img/sand.jpg");
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80vw;
+  height: 5.5vh;
+  background-color: #EDEDED;
+}
+nav i {
+  color: #757575;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding-inline: 2rem;
+}
+nav .buttons {
+  display: flex;
+  height: 100%;
+  align-items: end;
+}
+nav .buttons p {
+  font-weight: 700;
+  border: 2px solid #BDBDBD;
+  background-color: #E7E7E7;
+  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem 5rem;
+  transition: all 0.2s ease;
+}
+nav .buttons p.active {
+  background-color: #FBFBFB;
+}
+
+main > div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+section {
+  display: flex;
+  flex-direction: row;
+  border: 2px solid #CCCCCC;
+  background-color: #FAFAFA;
+  border-radius: 1rem;
+  padding: 5rem;
+}
+section:not(.active) {
+  display: none;
+}
+
+section > div {
+  display: flex;
+  padding: 2rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+div.leftSide div.switch {
+  background-color: transparent;
+}
+div.leftSide div.switch p {
+  margin: 1rem;
+  background-color: #EDEDED;
+  color: #868686;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: 0.2s all ease;
+}
+div.leftSide div.switch p:hover {
+  background-color: #CBCBCB;
+  color: #404040;
+}
+div.leftSide div.switch p.active {
+  background-color: #CBCBCB;
+  color: #404040;
+}
+
+div.rightSide {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+div.leftSide {
+  border-right: 2px solid #CA502A;
+}
+div.leftSide div {
+  display: flex;
+  background-color: #EDEDED;
+  color: #BDBDBD;
+  border-radius: 0.5rem;
+  margin: 0.2rem;
+}
+div.leftSide input, div.leftSide select {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+}
+
+button {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-radius: 0.5rem;
+}
+button.filled {
+  background-color: #CA502A;
+  color: white;
+  border: none;
+}
+button.outlined {
+  background-color: white;
+  border: 1px solid #CA502A;
+  color: #CA502A;
+}
+
+div.calcButtons {
+  display: flex;
+  margin-bottom: 15vh;
+}
+
+/*# sourceMappingURL=style.css.map */

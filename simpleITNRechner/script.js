@@ -139,3 +139,13 @@ function getITN(isSingle){
         console.log(itn[0], itn[1], itn[2], itn[3])
     }
 }
+
+function toggleActiveSD(elem){
+    document.querySelector('.buttons .active').classList.remove("active")
+    if(!elem.classList.contains("active")){
+        elem.classList.add("active")
+    }
+
+    document.querySelector('.single').classList.toggle("active")
+    document.querySelector('.double').classList.toggle("active")
+}
