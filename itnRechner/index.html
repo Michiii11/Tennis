@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>ITN Rechner</title>
-  <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+  <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon">
   <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="script.js" defer></script>
   <script src="https://kit.fontawesome.com/557f0c19d3.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <aside>
-    <h2>SIMPLE</h2>
     <h2>ITN RECHNER</h2>
   </aside>
 
@@ -31,7 +31,7 @@
       <section class="single active">
         <div class="leftSide">
           <div>
-            <input type="number" placeholder="Deine ITN">
+            <input type="number" class="sITN" placeholder="Deine ITN">
             <select name="sik1" id="sikS1" onchange="handleChanges()">
               <option value="true">Sicher</option>
               <option value="false">Nicht Sicher</option>
@@ -54,12 +54,10 @@
         <div class="rightSide">
           <h2>SIEG</h2>
           <h2>NIEDERLAGE</h2>
-          <p>0.00</p>
-          <p>0.00</p>
-          <p>0.00</p>
-          <p>0.00</p>
+          <p class="sW">0.00</p><p class="sL">0.00</p>
+          <p>0.00</p><p>0.00</p>
           <br><span></span>
-          <h2>VERÄNDERUNG</h2><br>
+          <h1>VERÄNDERUNG</h1>
           <p>0.00</p>
           <p>0.00</p>
         </div>
@@ -68,7 +66,7 @@
       <section class="double">
         <div class="leftSide">
           <div>
-            <input type="number" placeholder="Deine ITN">
+            <input type="number" class="dITN" placeholder="Deine ITN">
           </div>
           <div>
             <input type="number" placeholder="ITN Gegner">
@@ -89,21 +87,23 @@
         <div class="rightSide">
           <h2>SIEG</h2>
           <h2>NIEDERLAGE</h2>
-          <p>0.00</p><p>0.00</p>
+          <p class="dW">0.00</p><p class="dL">0.00</p>
           <p>0.00</p><p>0.00</p>
           <p>0.00</p><p>0.00</p>
           <p>0.00</p><p>0.00</p>
           <br><span></span>
-          <h2>VERÄNDERUNG</h2><br>
+          <h1>VERÄNDERUNG</h1>
           <p>0.00</p>
+          <p>0.00</p>
+          <span style="display: none">yanik ist der beste</span>
         </div>
       </section>
     </div>
 
     <div class="calcButtons">
       <div>
-        <button class="outlined">MIT SIEG WEITER</button>
-        <button class="outlined">MIT VERLUST WEITER</button>
+        <button class="outlined" onclick="continueWithWinOrLose('W')">MIT SIEG WEITER</button>
+        <button class="outlined" onclick="continueWithWinOrLose('L')">MIT VERLUST WEITER</button>
       </div>
       <button onclick="newGame()" class="filled">NEUES SPIEL</button>
     </div>

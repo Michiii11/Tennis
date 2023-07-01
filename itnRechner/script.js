@@ -1,3 +1,7 @@
+/***** Normal ITN Rechner *****/
+//region normal
+let activeType = "s" // s or d for single or double
+
 document.querySelectorAll("input").forEach((elem) => {
     elem.addEventListener("keyup", function (event) {
         handleChanges()
@@ -25,15 +29,17 @@ function handleChanges(){
             })
 
             if(areAllInputsFilled){
+                let calculatedITNS
                 if(types[i] === "single"){
-                    let count = 0;
-                    let calculatedITNs = calcItnSingle(itns[0], itns[1], siks[0], siks[1], hasRetired)
-                    document.querySelectorAll(`.${types[i]} .rightSide p`).forEach((elem) => {
-                        elem.innerHTML = calculatedITNs[count++]
-                    })
+                    calculatedITNs = calcItnSingle(itns[0], itns[1], siks[0], siks[1], hasRetired)
                 } else {
-                    console.log(calcItnDoubles(itns[0], itns[1], itns[2], itns[3], hasRetired))
+                    calculatedITNs = calcItnDoubles(itns[0], itns[1], itns[2], itns[3], hasRetired)
                 }
+
+                let count = 0;
+                document.querySelectorAll(`.${types[i]} .rightSide p`).forEach((elem) => {
+                    elem.innerHTML = calculatedITNs[count++]
+                })
             }
         }
     }
@@ -65,6 +71,7 @@ function calcItnSingle(p1, p2, sik1, sik2, hasRetired){
         let delta1 = 0.250 / (1.000 + 2.595 * Math.exp(3.500*x1))
         let delta2 = 0.250 / (1.000 + 2.595 * Math.exp(3.500*x2))
 
+        // Add delta
         calculatedITNs.push((p1-delta1*[sik1 < sik2 ? 2 : (sik1 > sik2 ? 0.5 : 1)]).toFixed(3));
         calculatedITNs.push((p1+delta2*[sik2 > sik1 ? 2 : (sik2 < sik1 ? 0.5 : 1)]).toFixed(3));
         calculatedITNs.push((p2+delta1*[sik1 > sik2 ? 2 : (sik1 < sik2 ? 0.5 : 1)]).toFixed(3));
@@ -92,56 +99,50 @@ function calcItnSingle(p1, p2, sik1, sik2, hasRetired){
  * @returns {string[]} itn of each player after the game
  */
 function calcItnDoubles(p1, p2, p3, p4, hasRetired){
-    if(hasRetired){  // Check if game has finished because of retirement
-        if(winner === 1){
-            p3 += 0.1;
-            p4 += 0.1;
-        } else{
-            p1 += 0.1;
-            p2 += 0.1;
-        }
+    let calculatedITNs = []
+
+    if(hasRetired){ // Check if game has finished because of retirement
+        calculatedITNs = [p1, p2, p3+0.1, p4+0.1, p1+0.1, p2+0.1, p3, p4];
     } else{
         p1-=0;p2-=0;p3-=0;p4-=0;
 
-        if(winner === 1){
-            winner = p1+p2
-            loser = p3+p4
-        } else{
-            winner = p3+p4
-            loser = p1+p2
-        }
-
-        let x = loser - winner;
+        let x1 = (p1+p2) - (p3+p4); // Team 2 is winner
+        let x2 = (p3+p4) - (p1+p2); // Team 1 is winner
 
         // Calculate delta
-        let delta = 0.250 / (1.000 + 2.595 * Math.exp(3.500*x))
-        delta *= 0.25;
+        let delta1 = (0.250 / (1.000 + 2.595 * Math.exp(3.500*x1))) * 0.25
+        let delta2 = (0.250 / (1.000 + 2.595 * Math.exp(3.500*x2))) * 0.25
 
         // Add Delta
-        if(winner === 1){
-            p1 -= delta;
-            p2 -= delta;
-            p3 += delta;
-            p4 += delta;
-        } else{
-            p1 += delta;
-            p2 += delta;
-            p3 -= delta;
-            p4 -= delta;
-        }
+        calculatedITNs = [
+            (p1-delta1).toFixed(3), (p1+delta2).toFixed(3),
+            (p2-delta1).toFixed(3), (p2+delta2).toFixed(3),
+            (p3+delta1).toFixed(3), (p3-delta2).toFixed(3),
+            (p4+delta1).toFixed(3), (p4-delta2).toFixed(3),
+            delta1.toFixed(3), delta2.toFixed(3)
+        ]
     }
-
-    console.log(p1, p2, p3, p4)
-    return [p1.toFixed(3), p2.toFixed(3), p3.toFixed(3), p4.toFixed(3)];
+    return calculatedITNs;
 }
 
 function toggleActiveSD(elem){
+    console.log(elem)
+    let itn1 = elem.closest(".leftSide").querySelectorAll("input")[0].value
+    let itn2 = elem.closest(".leftSide").querySelectorAll("input")[activeType === "s" ? 1 : 2].value
+
+    console.log(itn1, itn2)
     if(elem.innerHTML === "EINZEL"){
+        activeType = "s"
         document.querySelector(".single").classList.add("active")
+        document.querySelector(".single").querySelectorAll("input")[0].value = itn1;
+        document.querySelector(".single").querySelectorAll("input")[1].value = itn2;
         document.querySelector(".double").classList.remove("active")
     } else{
+        activeType = "d"
         document.querySelector(".single").classList.remove("active")
         document.querySelector(".double").classList.add("active")
+        document.querySelector(".double").querySelectorAll("input")[0].value = itn1;
+        document.querySelector(".double").querySelectorAll("input")[2].value = itn2;
     }
 }
 
@@ -150,3 +151,10 @@ function newGame(){
         elem.value = ""
     })
 }
+
+function continueWithWinOrLose(wOl){
+    let newITN = document.querySelector(`.${activeType}${wOl}`).innerHTML
+    newGame();
+    document.querySelector(`.${activeType}ITN`).value = newITN
+}
+//endregion

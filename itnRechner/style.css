@@ -45,7 +45,7 @@ aside {
   color: white;
   width: 20vw;
   height: 100vh;
-  background: url("img/sand.jpg");
+  background: url("../img/sand.jpg");
 }
 
 nav {
@@ -61,6 +61,12 @@ nav i {
   cursor: pointer;
   font-size: 1.5rem;
   padding-inline: 2rem;
+}
+nav .fa-info {
+  border: 2px solid #BDBDBD;
+  border-radius: 50%;
+  padding: 0.5rem 1rem;
+  margin-right: 1rem;
 }
 nav .buttons {
   display: flex;
@@ -106,17 +112,38 @@ section > div {
   align-items: center;
 }
 
+div.rightSide {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+div.rightSide h1 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.rightSide h1, div.rightSide h2 {
+  font-size: 1.4rem;
+  color: #868686;
+  font-weight: 500;
+}
+div.rightSide p {
+  padding-block: 0.3rem;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
 div.leftSide div.switch {
   background-color: transparent;
 }
 div.leftSide div.switch p {
-  margin: 1rem;
+  margin-top: 1rem;
+  margin-right: 1rem;
   background-color: #EDEDED;
   color: #868686;
-  padding: 0.5rem 1rem;
+  padding: 0.2rem 1rem;
   cursor: pointer;
   border-radius: 0.5rem;
   transition: 0.2s all ease;
+  font-weight: 500;
 }
 div.leftSide div.switch p:hover {
   background-color: #CBCBCB;
@@ -127,25 +154,24 @@ div.leftSide div.switch p.active {
   color: #404040;
 }
 
-div.rightSide {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-}
-
 div.leftSide {
+  margin-top: 1.5rem;
   border-right: 2px solid #CA502A;
 }
 div.leftSide div {
   display: flex;
+  width: 15vw;
   background-color: #EDEDED;
   color: #BDBDBD;
   border-radius: 0.5rem;
   margin: 0.2rem;
 }
 div.leftSide input, div.leftSide select {
-  background: none;
+  background: transparent;
+  outline: none;
   border: none;
   padding: 0.5rem;
+  width: 100%;
 }
 
 button {
@@ -154,6 +180,7 @@ button {
   font-weight: bold;
   border-radius: 0.5rem;
   transition: all 0.2s ease;
+  font-size: 1.2rem;
 }
 button.filled {
   background-color: #CA502A;
@@ -176,6 +203,29 @@ div.calcButtons {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15vh;
+  width: 60%;
+  margin-inline: auto;
+}
+
+@media screen and (max-width: 800px) {
+  aside {
+    display: none;
+  }
+  section {
+    padding: 0;
+  }
+  div.calcButtons {
+    width: 100%;
+  }
+  button {
+    width: 100%;
+  }
+  div.leftSide div {
+    width: 100%;
+  }
+  div.leftSide div.switch {
+    flex-direction: column;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
