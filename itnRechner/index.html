@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>ITN Rechner</title>
-  <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon">
+  <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="script.js" defer></script>
@@ -19,15 +19,15 @@
       <i class="fa-solid fa-arrow-left"></i>
 
       <div class="buttons">
-        <p onclick="selectNavigation(this)">NORMAL</p>
-        <p onclick="selectNavigation(this)" class="active">TURNIER</p>
+        <p onclick="selectNavigation(this)" class="active">NORMAL</p>
+        <p onclick="selectNavigation(this)">TURNIER</p>
         <p onclick="selectNavigation(this)">MEISTERSCHAFT</p>
       </div>
 
       <i class="fa-solid fa-info"></i>
     </nav>
 
-    <section class="normal">
+    <section class="normal active">
       <div>
         <section class="box single active">
           <div class="leftSide">
@@ -110,7 +110,7 @@
     </section>
 
 
-    <section class="turnier active">
+    <section class="turnier">
       <select name="tournamentMode" id="tournamentMode" onchange="updateTournamentDraw()">
         <option value="8">8er Raster</option>
         <option value="16">16er Raster</option>

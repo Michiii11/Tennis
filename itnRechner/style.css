@@ -118,7 +118,7 @@ aside {
   color: white;
   width: 20vw;
   height: 100vh;
-  background: url("../img/sand.jpg");
+  background: url(" img/sand.jpg");
 }
 
 @media screen and (max-width: 1600px) {
