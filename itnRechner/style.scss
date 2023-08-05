@@ -1,4 +1,5 @@
 // General
+//region general
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;700;800&display=swap');
 
 $primary: #CA502A;
@@ -41,7 +42,94 @@ main{
   justify-content: space-between;
 }
 
+@media screen and (max-width: 1350px) {
+  main{
+    width: 100%;
+  }
+}
+
+//endregion
+
+// Buttons
+//region buttons
+button{
+  cursor: pointer;
+  padding: .5rem 1rem;
+  font-weight: bold;
+  border-radius: .5rem;
+  transition: all .2s ease;
+  font-size: 1.1rem;
+  margin-inline: 1rem;
+
+  &.filled{
+    background-color: $primary;
+    color: white;
+    border: none;
+    &:hover{
+      filter: brightness(110%);
+    }
+  }
+
+  &.outlined{
+    background-color: white;
+    border: 1px solid $primary;
+    color: $primary;
+    &:hover{
+      filter: brightness(90%);
+    }
+  }
+}
+
+div.calcButtons{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15vh;
+  width: 60%;
+  margin-inline: auto;
+}
+
+@media screen and (max-width: 1350px) {
+  button{
+    padding: .5rem .5rem;
+    margin-inline: .5rem;
+  }
+}
+@media screen and (max-width: 950px) {
+  div.calcButtons{
+    width: 80%;
+  }
+}
+@media screen and (max-width: 700px) {
+  div.calcButtons{
+    button{
+      margin-block: .5rem;
+      width: 30vw;
+    }
+
+    div{
+      display: flex;
+      flex-direction: column;
+    }
+
+    flex-direction: column;
+    align-items: center;
+  }
+}
+//endregion
+
+//Sections
+//region sections
+section:not(.active){
+  display: none;
+}
+main > section{
+  height: 100%;
+  width: 100%;
+}
+//endregion
+
 // Aside
+//region aside
 aside{
   font-size: 2rem;
   font-weight: 800;
@@ -55,8 +143,20 @@ aside{
   background: url("../img/sand.jpg");
 }
 
+@media screen and (max-width: 1600px) {
+  aside {
+    color: transparent;
+  }
+}
+@media screen and (max-width: 1350px) {
+  aside {
+    display: none;
+  }
+}
+//endregion
 
 // Navigation
+//region navigation
 nav{
   display: flex;
   justify-content: space-between;
@@ -101,16 +201,36 @@ nav{
   }
 }
 
-// Section
-main > div{
-  width: 100%;
-  display: flex;
-  justify-content: center;
+@media screen and (max-width: 1350px) {
+  nav{
+    width: 100%;
+  }
+}
+@media screen and (max-width: 900px) {
+  nav {
+    display: none;
+  }
 }
 
-section{
+//endregion
+
+// Section
+//region section
+main section.normal{
+  height: 100%;
+  width: 100%;
+
+  > div{
+    display: flex;
+    justify-content: center;
+  }
+}
+
+section.box{
   display: flex;
   flex-direction: row;
+  width: 50%;
+  margin-block: 7vw;
 
   &:not(.active){
     display: none;
@@ -120,40 +240,25 @@ section{
   background-color: #FAFAFA;
   border-radius: 1rem;
   padding: 5rem;
+
+  > div{
+    display: flex;
+    padding: 2rem;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
-section > div{
+section.box div.leftSide{
+  margin-top: 1.5rem;
+  border-right: 2px solid $primary;
+}
+
+section.box div.leftSide div.switch{
   display: flex;
-  padding: 2rem;
-  flex-direction: column;
-  align-items: center;
-}
-
-div.rightSide{
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-
-  h1{
-    grid-column-start: 1;
-    grid-column-end: 3;
-  }
-  h1, h2{
-    font-size: 1.4rem;
-    color: $texgrey;
-    font-weight: 500;
-  }
-  p{
-    padding-block: .3rem;
-    font-weight: bold;
-    font-size: 1.4rem;
-  }
-}
-
-div.leftSide div.switch{
-  background-color: transparent;
+  margin-top: 2rem;
 
   p{
-    margin-top: 1rem;
     margin-right: 1rem;
     background-color: #EDEDED;
     color: #868686;
@@ -175,89 +280,148 @@ div.leftSide div.switch{
   }
 }
 
-div.leftSide{
-  margin-top: 1.5rem;
-  border-right: 2px solid $primary;
+section.box div.rightSide{
+  display: grid;
+  width: 50vw;
+  grid-template-columns: repeat(2, 1fr);
 
-  div{
-    display: flex;
-    width: 15vw;
-    background-color: #EDEDED;
-    color: $grey;
-    border-radius: .5rem;
-    margin: .2rem;
+  h1{
+    grid-column-start: 1;
+    grid-column-end: 3;
   }
+  h1, h2{
+    font-size: 1.4rem;
+    color: $texgrey;
+    font-weight: 500;
+  }
+  p{
+    padding-block: .5rem;
+    font-weight: bold;
+    font-size: 1.4rem;
+  }
+}
+
+.itnField{
+  display: flex;
+  width: 15vw;
+  background-color: #EDEDED;
+  color: $grey;
+  border-radius: .5rem;
+  margin: .2rem;
 
   input, select{
+    font-size: 1.2rem;
     background: transparent;
     outline: none;
     border: none;
     padding: .5rem;
     width: 100%;
   }
+
+  select{
+    width: 60%;
+    font-size: 1rem;
+    margin-right: .2rem;
+  }
 }
 
-button{
-  cursor: pointer;
-  padding: .5rem 1rem;
-  font-weight: bold;
-  border-radius: .5rem;
-  transition: all .2s ease;
-  font-size: 1.2rem;
+@media screen and (max-width: 900px) {
+  section.box{
+    margin-top: 5rem;
+    padding: 1rem;
+  }
 
-  &.filled{
-    background-color: $primary;
-    color: white;
+  section.box div.leftSide div.switch{
+    flex-direction: column;
+
+    p{
+      margin-block: .2rem;
+    }
+  }
+
+  section.box div.rightSide{
+    grid-template-columns: .8fr 1fr;
+    p{
+      font-size: 1.1rem;
+    }
+  }
+
+  .itnField{
+    input, select{
+      font-size: .8rem;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  section.box{
     border: none;
-    &:hover{
-      filter: brightness(110%);
-    }
-  }
-
-  &.outlined{
-    background-color: white;
-    border: 1px solid $primary;
-    color: $primary;
-    &:hover{
-      filter: brightness(90%);
-    }
-  }
-}
-
-div.calcButtons{
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15vh;
-  width: 60%;
-  margin-inline: auto;
-}
-
-
-// Responsive
-@media screen and (max-width: 800px) {
-  aside {
-    display: none;
-  }
-
-  section{
+    background-color: #FAFAFA;
+    border-radius: 1rem;
     padding: 0;
-  }
 
-  div.calcButtons{
-    width: 100%;
+    > div{
+      padding: 2rem 1rem;
+    }
+  }
+}
+//endregion
+
+// Meisterschaft
+//region meisterschaft
+section.meisterschaft{
+  text-align: center;
+
+  .header{
+    display: flex;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+    justify-content: center;
+
+    input{
+      margin-inline: 1vw;
+      width: 3vw;
+      text-align: center;
+      border: none;
+      border-bottom: 1px solid $texgrey;
+    }
   }
 
   button{
-    width: 100%;
-  }
-
-  div.leftSide{
-    div{
-      width: 100%;
-    }
-
-    div.switch{
-      flex-direction: column;
-    }
+    margin-top: 2vh;
+    width: 10vw;
   }
 }
+section.meisterschaft .box{
+  border: 2px solid #CCCCCC;
+  margin-inline: auto;
+  padding: 1rem;
+  width: 50%;
+
+  div{
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .doublePair{
+    display: block;
+  }
+}
+//endregion
+
+// Turnier
+//region turnier
+section.turnier{
+
+}
+
+.tournamentDraw{
+  display: flex;
+
+  > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+}
+//endregion

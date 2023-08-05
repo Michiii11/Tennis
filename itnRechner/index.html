@@ -19,94 +19,123 @@
       <i class="fa-solid fa-arrow-left"></i>
 
       <div class="buttons">
-        <p class="active">NORMAL</p>
-        <p>TURNIER</p>
-        <p>MEISTERSCHAFT</p>
+        <p onclick="selectNavigation(this)">NORMAL</p>
+        <p onclick="selectNavigation(this)" class="active">TURNIER</p>
+        <p onclick="selectNavigation(this)">MEISTERSCHAFT</p>
       </div>
 
       <i class="fa-solid fa-info"></i>
     </nav>
 
-    <div>
-      <section class="single active">
-        <div class="leftSide">
-          <div>
-            <input type="number" class="sITN" placeholder="Deine ITN">
-            <select name="sik1" id="sikS1" onchange="handleChanges()">
-              <option value="true">Sicher</option>
-              <option value="false">Nicht Sicher</option>
-            </select>
-          </div>
-          <div>
-            <input type="number" placeholder="ITN Gegner">
-            <select name="sik2" id="sikS2" onchange="handleChanges()">
-              <option value="true">Sicher</option>
-              <option value="false">Nicht Sicher</option>
-            </select>
-          </div>
-
-          <div class="switch">
-            <p class="active" onclick="toggleActiveSD(this)">EINZEL</p>
-            <p onclick="toggleActiveSD(this)">DOPPEL</p>
-          </div>
-        </div>
-
-        <div class="rightSide">
-          <h2>SIEG</h2>
-          <h2>NIEDERLAGE</h2>
-          <p class="sW">0.00</p><p class="sL">0.00</p>
-          <p>0.00</p><p>0.00</p>
-          <br><span></span>
-          <h1>VERÄNDERUNG</h1>
-          <p>0.00</p>
-          <p>0.00</p>
-        </div>
-      </section>
-
-      <section class="double">
-        <div class="leftSide">
-          <div>
-            <input type="number" class="dITN" placeholder="Deine ITN">
-          </div>
-          <div>
-            <input type="number" placeholder="ITN Gegner">
-          </div>
-          <div>
-            <input type="number" placeholder="ITN Gegner">
-          </div>
-          <div>
-            <input type="number" placeholder="ITN Gegner">
-          </div>
-
-          <div class="switch">
-            <p onclick="toggleActiveSD(this)">EINZEL</p>
-            <p class="active" onclick="toggleActiveSD(this)">DOPPEL</p>
-          </div>
-        </div>
-
-        <div class="rightSide">
-          <h2>SIEG</h2>
-          <h2>NIEDERLAGE</h2>
-          <p class="dW">0.00</p><p class="dL">0.00</p>
-          <p>0.00</p><p>0.00</p>
-          <p>0.00</p><p>0.00</p>
-          <p>0.00</p><p>0.00</p>
-          <br><span></span>
-          <h1>VERÄNDERUNG</h1>
-          <p>0.00</p>
-          <p>0.00</p>
-          <span style="display: none">yanik ist der beste</span>
-        </div>
-      </section>
-    </div>
-
-    <div class="calcButtons">
+    <section class="normal">
       <div>
-        <button class="outlined" onclick="continueWithWinOrLose('W')">MIT SIEG WEITER</button>
-        <button class="outlined" onclick="continueWithWinOrLose('L')">MIT VERLUST WEITER</button>
+        <section class="box single active">
+          <div class="leftSide">
+            <div class="itnField">
+              <input type="number" class="sITN" placeholder="Deine ITN">
+              <select name="sik1" id="sikS1" onchange="handleChanges()">
+                <option value="true">Sicher</option>
+                <option value="false">Nicht Sicher</option>
+              </select>
+            </div>
+            <div class="itnField">
+              <input type="number" placeholder="ITN Gegner">
+              <select name="sik2" id="sikS2" onchange="handleChanges()">
+                <option value="true">Sicher</option>
+                <option value="false">Nicht Sicher</option>
+              </select>
+            </div>
+
+            <div class="switch">
+              <p class="active" onclick="toggleActiveSD(this)">EINZEL</p>
+              <p onclick="toggleActiveSD(this)">DOPPEL</p>
+            </div>
+          </div>
+
+          <div class="rightSide">
+            <h2>SIEG</h2>
+            <h2>NIEDERLAGE</h2>
+            <p class="sW">0.00</p><p class="sL">0.00</p>
+            <p>0.00</p><p>0.00</p>
+            <br><span></span>
+            <h1>VERÄNDERUNG</h1>
+            <p>0.00</p>
+            <p>0.00</p>
+          </div>
+        </section>
+
+        <section class="box double">
+          <div class="leftSide">
+            <div class="itnField">
+              <input type="number" class="dITN" placeholder="Deine ITN">
+            </div>
+            <div class="itnField">
+              <input type="number" placeholder="ITN Gegner">
+            </div>
+            <div class="itnField">
+              <input type="number" placeholder="ITN Gegner">
+            </div>
+            <div class="itnField">
+              <input type="number" placeholder="ITN Gegner">
+            </div>
+
+            <div class="switch">
+              <p onclick="toggleActiveSD(this)">EINZEL</p>
+              <p class="active" onclick="toggleActiveSD(this)">DOPPEL</p>
+            </div>
+          </div>
+
+          <div class="rightSide">
+            <h2>SIEG</h2>
+            <h2>NIEDERLAGE</h2>
+            <p class="dW">0.00</p><p class="dL">0.00</p>
+            <p>0.00</p><p>0.00</p>
+            <p>0.00</p><p>0.00</p>
+            <p>0.00</p><p>0.00</p>
+            <br><span></span>
+            <h1>VERÄNDERUNG</h1>
+            <p>0.00</p>
+            <p>0.00</p>
+          </div>
+        </section>
       </div>
-      <button onclick="newGame()" class="filled">NEUES SPIEL</button>
-    </div>
+
+      <div class="calcButtons">
+        <div>
+          <button class="outlined" onclick="continueWithWinOrLose('W')">MIT SIEG WEITER</button>
+          <button class="outlined" onclick="continueWithWinOrLose('L')">MIT VERLUST WEITER</button>
+        </div>
+        <button onclick="newGame()" class="filled">NEUES SPIEL</button>
+      </div>
+    </section>
+
+
+    <section class="turnier active">
+      <select name="tournamentMode" id="tournamentMode" onchange="updateTournamentDraw()">
+        <option value="8">8er Raster</option>
+        <option value="16">16er Raster</option>
+        <option value="32">32er Raster</option>
+      </select>
+
+      <div class="tournamentDraw"></div>
+    </section>
+
+
+    <section class="meisterschaft">
+      <div class="header">
+        <h1>EINZEL</h1>
+        <input type="number" id="einzelAnz" value="6" onchange="updateGamesChampionship(0)">
+      </div>
+      <div class="box singleM"></div>
+
+      <div class="header">
+        <h1>DOPPEL</h1>
+        <input type="number" id="doppelAnz" value="3" onchange="updateGamesChampionship(1)">
+      </div>
+      <div class="box doubleM"></div>
+
+      <button onclick="newGame()" class="filled">BERECHNEN</button>
+    </section>
   </main>
 </body>
 </html>

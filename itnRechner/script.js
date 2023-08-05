@@ -1,5 +1,19 @@
+/***** General *****/
+//region general
+let currMode = "NORMAL"
+
+function selectNavigation(elem){
+    document.querySelector("nav .buttons .active").classList.remove("active")
+    elem.classList.add("active")
+    currMode = elem.innerHTML
+
+    document.querySelector("main > section.active").classList.remove("active")
+    document.querySelector(`section.${currMode.toLowerCase()}`).classList.add("active")
+}
+//endregion
+
 /***** Normal ITN Rechner *****/
-//region normal
+//region normal itn rechner
 let activeType = "s" // s or d for single or double
 
 document.querySelectorAll("input").forEach((elem) => {
@@ -156,5 +170,80 @@ function continueWithWinOrLose(wOl){
     let newITN = document.querySelector(`.${activeType}${wOl}`).innerHTML
     newGame();
     document.querySelector(`.${activeType}ITN`).value = newITN
+}
+//endregion
+
+/***** Tournament ITN Rechner *****/
+//region tournament itn rechner
+updateTournamentDraw()
+function updateTournamentDraw(){
+    let tournamentBox = document.querySelector(".tournamentDraw")
+    tournamentBox.innerHTML = ""
+
+    let currMatches = document.querySelector("#tournamentMode").value
+    while(currMatches/2 >= 1){
+        currMatches = currMatches / 2
+        let temp = "<div>"
+        for (let i = 0; i < currMatches; i++) {
+            temp += "<div>"
+            for (let j = 0; j < 2; j++) {
+                temp += "<div class=\"itnField\">" +
+                    "<input type=\"number\" class=\"sITN\" placeholder=\"Deine ITN\">" +
+                    "<select name=\"sik1\" id=\"sikS1\" onchange=\"handleChanges()\">" +
+                    "    <option value=\"true\">Sicher</option>" +
+                    "    <option value=\"false\">Nicht Sicher</option>" +
+                    "</select>" +
+                    "</div>"
+            }
+            temp += "</div>"
+        }
+        temp += "</div>"
+        tournamentBox.innerHTML += temp
+    }
+
+}
+//endregion
+
+/***** Championship ITN Rechner *****/
+//region championship itn rechner
+updateGamesChampionship(null)
+function updateGamesChampionship(type){ // type: 0 == SINGLE | 1 == DOUBLE
+    if(type === 0 || type === null){
+        let singleBox = document.querySelector(".singleM")
+        singleBox.innerHTML = ""
+        for (let i = 0; i < document.querySelector("#einzelAnz").value; i++) {
+            let temp = "<div>"
+            for (let j = 0; j < 2; j++) {
+                temp += "<div class=\"itnField\">" +
+                    "<input type=\"number\" class=\"sITN\" placeholder=\"Deine ITN\">" +
+                    "<select name=\"sik1\" id=\"sikS1\" onchange=\"handleChanges()\">" +
+                    "    <option value=\"true\">Sicher</option>" +
+                    "    <option value=\"false\">Nicht Sicher</option>" +
+                    "</select>" +
+                    "</div>"
+            }
+            temp += "</div>"
+            singleBox.innerHTML += temp
+        }
+    }
+
+    if(type === 1 || type === null){
+        let doubleBox = document.querySelector(".doubleM")
+        doubleBox.innerHTML = ""
+        for (let i = 0; i < document.querySelector("#doppelAnz").value; i++) {
+            let temp = "<div>"
+            for (let j = 0; j < 2; j++) {
+                temp += "<div class='doublePair'>"
+                for (let k = 0; k < 2; k++) {
+                    temp += "<div class=\"itnField\">" +
+                            "<input type=\"number\" class=\"sITN\" placeholder=\"Deine ITN\">" +
+                        "</div>"
+                }
+                temp += "</div>"
+            }
+            temp += "</div>"
+            doubleBox.innerHTML += temp
+        }
+    }
 }
 //endregion
