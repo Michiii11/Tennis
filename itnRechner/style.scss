@@ -3,8 +3,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;700;800&display=swap');
 
 $primary: #CA502A;
-$grey: #BDBDBD;
-$texgrey: #868686;
+$gray100: hsla(0, 0%, 100%, 1);
+$gray200: hsla(0, 0%, 90%, 1);
+$gray300: hsla(0, 0%, 80%, 1);
+$gray400: hsla(0, 0%, 70%, 1);
+$gray500: hsla(0, 0%, 60%, 1);
+$gray600: hsla(0, 0%, 50%, 1);
+$gray700: hsla(0, 0%, 40%, 1);
+$gray800: hsla(0, 0%, 30%, 1);
+$gray900: hsla(0, 0%, 20%, 1);
+$gray1000: hsla(0, 0%, 10%, 1);
+$gray1100: hsla(0, 0%, 0%, 1);
 
 *{
   margin: 0;
@@ -37,7 +46,6 @@ body{
 
 main{
   display: flex;
-  height: 100vh;
   flex-direction: column;
   justify-content: space-between;
 }
@@ -47,7 +55,6 @@ main{
     width: 100%;
   }
 }
-
 //endregion
 
 // Buttons
@@ -75,12 +82,12 @@ button{
     border: 1px solid $primary;
     color: $primary;
     &:hover{
-      filter: brightness(90%);
+      filter: brightness(95%);
     }
   }
 }
 
-div.calcButtons{
+main section.normal div.calcButtons{
   display: flex;
   justify-content: space-between;
   margin-bottom: 15vh;
@@ -94,25 +101,24 @@ div.calcButtons{
     margin-inline: .5rem;
   }
 }
-@media screen and (max-width: 950px) {
-  div.calcButtons{
-    width: 80%;
-  }
-}
-@media screen and (max-width: 700px) {
-  div.calcButtons{
-    button{
-      margin-block: .5rem;
-      width: 30vw;
-    }
-
+@media screen and (max-width: 1000px) {
+  main section.normal div.calcButtons{
+    width: 100%;
     div{
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
     }
-
+    padding: 1rem;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    gap: 1rem;
+    background: var(--gray100, #FFF);
+    box-shadow: 0px -4px 4px 0px rgba(0, 0, 0, 0.10);
+
+    button{
+      flex-grow: 1;
+    }
   }
 }
 //endregion
@@ -121,10 +127,6 @@ div.calcButtons{
 //region sections
 section:not(.active){
   display: none;
-}
-main > section{
-  height: 100%;
-  width: 100%;
 }
 //endregion
 
@@ -138,8 +140,8 @@ aside{
   align-items: center;
   justify-content: center;
   color: white;
-  width: 20vw;
   height: 100vh;
+  width: 20vw;
   background: url(" img/sand.jpg");
 }
 
@@ -161,19 +163,18 @@ nav{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80vw;
-  height: 5.5vh;
-  background-color: #EDEDED;
+  width: 100%;
+  background-color: $gray200;
 
   i{
-    color: #757575;
+    color: $gray800;
     cursor: pointer;
     font-size: 1.5rem;
     padding-inline: 2rem;
   }
 
   .fa-info{
-    border: 2px solid $grey;
+    border: 2px solid $gray800;
     border-radius: 50%;
     padding: .5rem 1rem;
     margin-right: 1rem;
@@ -181,21 +182,18 @@ nav{
 
   .buttons{
     display: flex;
-    height: 100%;
     align-items: end;
 
     p{
       font-weight: 700;
-      border: 2px solid $grey;
-      background-color: #E7E7E7;
-      border-top-right-radius: .5rem;
-      border-top-left-radius: .5rem;
+      border: 1px solid $gray500;
+      background-color: transparent;
       cursor: pointer;
       padding: .5rem 5rem;
       transition: all .2s ease;
 
       &.active{
-        background-color: #FBFBFB;
+        background-color: $gray100;
       }
     }
   }
@@ -206,9 +204,34 @@ nav{
     width: 100%;
   }
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
   nav {
-    display: none;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+    .buttons {
+      width: 100%;
+
+      p{
+        text-align: center;
+        flex-grow: 1;
+        font-weight: 600;
+        border: none;
+        border-right: 1px solid $gray200;
+        border-left: 1px solid $gray200;
+        border-radius: 0;
+        cursor: pointer;
+        padding: 0.5rem 2rem;
+
+        &.active{
+          background-color: $primary;
+          color: $gray100;
+        }
+      }
+    }
+
+    i{
+      display: none !important;
+    }
   }
 }
 
@@ -216,14 +239,9 @@ nav{
 
 // Section
 //region section
-main section.normal{
-  height: 100%;
-  width: 100%;
-
-  > div{
-    display: flex;
-    justify-content: center;
-  }
+main section.normal > div{
+  display: flex;
+  justify-content: center;
 }
 
 section.box{
@@ -236,8 +254,8 @@ section.box{
     display: none;
   }
 
-  border: 2px solid #CCCCCC;
-  background-color: #FAFAFA;
+  border: 2px solid $gray500;
+  background-color: $gray100;
   border-radius: 1rem;
   padding: 5rem;
 
@@ -249,19 +267,19 @@ section.box{
   }
 }
 
-section.box div.leftSide{
+div.leftSide{
   margin-top: 1.5rem;
   border-right: 2px solid $primary;
 }
 
-section.box div.leftSide div.switch{
+div.switch{
   display: flex;
   margin-top: 2rem;
 
   p{
     margin-right: 1rem;
-    background-color: #EDEDED;
-    color: #868686;
+    background-color: $gray200;
+    color: $gray800;
     padding: .2rem 1rem;
     cursor: pointer;
     border-radius: .5rem;
@@ -269,13 +287,12 @@ section.box div.leftSide div.switch{
     font-weight: 500;
 
     &:hover{
-      background-color: #CBCBCB;
-      color: #404040;
+      background-color: $gray300;
     }
 
     &.active{
-      background-color: #CBCBCB;
-      color: #404040;
+      background-color: $gray700;
+      color: $gray100;
     }
   }
 }
@@ -291,7 +308,7 @@ section.box div.rightSide{
   }
   h1, h2{
     font-size: 1.4rem;
-    color: $texgrey;
+    color: $gray500;
     font-weight: 500;
   }
   p{
@@ -304,13 +321,13 @@ section.box div.rightSide{
 .itnField{
   display: flex;
   width: 15vw;
-  background-color: #EDEDED;
-  color: $grey;
+  color: $gray200;
+  border: 1px solid $gray500;
   border-radius: .5rem;
   margin: .2rem;
 
   input, select{
-    font-size: 1.2rem;
+    font-size: 1rem;
     background: transparent;
     outline: none;
     border: none;
@@ -325,43 +342,22 @@ section.box div.rightSide{
   }
 }
 
-@media screen and (max-width: 900px) {
-  section.box{
-    margin-top: 5rem;
-    padding: 1rem;
-  }
-
-  section.box div.leftSide div.switch{
+@media screen and (max-width: 1000px) {
+  main section.normal{
+    display: flex;
     flex-direction: column;
-
-    p{
-      margin-block: .2rem;
-    }
+    align-items: center;
   }
-
-  section.box div.rightSide{
-    grid-template-columns: .8fr 1fr;
-    p{
-      font-size: 1.1rem;
-    }
-  }
-
-  .itnField{
-    input, select{
-      font-size: .8rem;
-    }
-  }
-}
-
-@media screen and (max-width: 600px) {
   section.box{
     border: none;
-    background-color: #FAFAFA;
-    border-radius: 1rem;
-    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
 
-    > div{
-      padding: 2rem 1rem;
+    .itnField{
+      width: 90%;
+      padding: .2rem;
+      flex-direction: row;
     }
   }
 }
@@ -383,7 +379,7 @@ section.meisterschaft{
       width: 3vw;
       text-align: center;
       border: none;
-      border-bottom: 1px solid $texgrey;
+      border-bottom: 1px solid $gray200;
     }
   }
 

@@ -10,6 +10,207 @@ function selectNavigation(elem){
     document.querySelector("main > section.active").classList.remove("active")
     document.querySelector(`section.${currMode.toLowerCase()}`).classList.add("active")
 }
+
+let mediaQuery = window.matchMedia("(max-width: 1000px)");
+loadNormal();
+mediaQuery.addEventListener("change", function() {
+    loadNormal();
+});
+function loadNormal() {
+    if(!mediaQuery.matches){
+        document.querySelector("section.normal").innerHTML = `      
+      <div>
+        <section class="box single active">
+          <div class="leftSide">
+            <div class="itnField">
+              <input type="number" class="sITN" placeholder="Deine ITN">
+              <select name="sik1" id="sikS1" onchange="handleChanges()">
+                <option value="true">Sicher</option>
+                <option value="false">Nicht Sicher</option>
+              </select>
+            </div>
+            <div class="itnField">
+              <input type="number" placeholder="ITN Gegner">
+              <select name="sik2" id="sikS2" onchange="handleChanges()">
+                <option value="true">Sicher</option>
+                <option value="false">Nicht Sicher</option>
+              </select>
+            </div>
+
+            <div class="switch">
+              <p class="active" onclick="toggleActiveSD(this)">EINZEL</p>
+              <p onclick="toggleActiveSD(this)">DOPPEL</p>
+            </div>
+          </div>
+
+          <div class="rightSide">
+            <h2>SIEG</h2>
+            <h2>NIEDERLAGE</h2>
+            <p class="sW">0.00</p><p class="sL">0.00</p>
+            <p>0.00</p><p>0.00</p>
+            <br><span></span>
+            <h1>VERÄNDERUNG</h1>
+            <p>0.00</p>
+            <p>0.00</p>
+          </div>
+        </section>
+
+        <section class="box double">
+          <div class="leftSide">
+            <div class="itnField">
+              <input type="number" class="dITN" placeholder="Deine ITN">
+            </div>
+            <div class="itnField">
+              <input type="number" placeholder="ITN Gegner">
+            </div>
+            <div class="itnField">
+              <input type="number" placeholder="ITN Gegner">
+            </div>
+            <div class="itnField">
+              <input type="number" placeholder="ITN Gegner">
+            </div>
+
+            <div class="switch">
+              <p onclick="toggleActiveSD(this)">EINZEL</p>
+              <p class="active" onclick="toggleActiveSD(this)">DOPPEL</p>
+            </div>
+          </div>
+
+          <div class="rightSide">
+            <h2>SIEG</h2>
+            <h2>NIEDERLAGE</h2>
+            <p class="dW">0.00</p><p class="dL">0.00</p>
+            <p>0.00</p><p>0.00</p>
+            <p>0.00</p><p>0.00</p>
+            <p>0.00</p><p>0.00</p>
+            <br><span></span>
+            <h1>VERÄNDERUNG</h1>
+            <p>0.00</p>
+            <p>0.00</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="calcButtons">
+        <div>
+          <button class="outlined" onclick="continueWithWinOrLose('W')">MIT SIEG WEITER</button>
+          <button class="outlined" onclick="continueWithWinOrLose('L')">MIT VERLUST WEITER</button>
+        </div>
+        <button onclick="newGame()" class="filled">NEUES SPIEL</button>
+      </div>`
+    } else{
+        document.querySelector("section.normal").innerHTML = `      
+            <div class="switch">
+              <p class="active" onclick="toggleActiveSD(this)">EINZEL</p>
+              <p onclick="toggleActiveSD(this)">DOPPEL</p>
+            </div>
+            
+            <section class="box single active">
+                <div class="itnField">
+                  <input type="number" class="sITN" placeholder="Deine ITN">
+                  <select name="sik1" id="sikS1" onchange="handleChanges()">
+                    <option value="true">Sicher</option>
+                    <option value="false">Nicht Sicher</option>
+                  </select>
+                </div>
+                <div class="itnField">
+                  <input type="number" placeholder="ITN Gegner">
+                  <select name="sik2" id="sikS2" onchange="handleChanges()">
+                    <option value="true">Sicher</option>
+                    <option value="false">Nicht Sicher</option>
+                  </select>
+                </div>
+    
+                <div class="itnBox">
+                    <h2>SIEG</h2>
+                    <div class="itnResult">       
+                        <div class="yourITN">
+                            <h4>Deine ITN</h4>
+                            <p class="sW">0.00</p>
+                        </div>
+                        <div class="opponentITN">
+                            <h4>Gegner ITN</h4>
+                            <p class="gW">0.00</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="itnBox">
+                    <h2>NIEDERLAGE</h2>
+                    <div class="itnResult">       
+                        <div class="yourITN">
+                            <h4>Deine ITN</h4>
+                            <p class="sL">0.00</p>
+                        </div>
+                        <div class="opponentITN">
+                            <h4>Gegner ITN</h4>
+                            <p class="gL">0.00</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="box double">
+                <div class="itnField">
+                  <input type="number" class="dITN" placeholder="Deine ITN">
+                </div>
+                <div class="itnField">
+                  <input type="number" placeholder="ITN Gegner">
+                </div>
+                <div class="itnField">
+                  <input type="number" placeholder="ITN Gegner">
+                </div>
+                <div class="itnField">
+                  <input type="number" placeholder="ITN Gegner">
+                </div>
+    
+                <div class="itnBox">
+                    <h2>SIEG</h2>
+                    <div class="itnResult">       
+                        <div class="yourITN">
+                            <h4>Deine ITN</h4>
+                            <p>0.00</p>
+                            <h4>Deine ITN</h4>
+                            <p>0.00</p>
+                        </div>
+                        <div class="opponentITN">
+                            <h4>Gegner ITN</h4>
+                            <p>0.00</p>
+                            <h4>Gegner ITN</h4>
+                            <p>0.00</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="itnBox">
+                    <h2>NIEDERLAGE</h2>
+                    <div class="itnResult">       
+                        <div class="yourITN">
+                            <h4>Deine ITN</h4>
+                            <p>0.00</p>
+                            <h4>Deine ITN</h4>
+                            <p>0.00</p>
+                        </div>
+                        <div class="opponentITN">
+                            <h4>Gegner ITN</h4>
+                            <p>0.00</p>
+                            <h4>Gegner ITN</h4>
+                            <p>0.00</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <div class="calcButtons">
+                <div>
+                  <button class="outlined" onclick="continueWithWinOrLose('W')">MIT SIEG WEITER</button>
+                  <button class="outlined" onclick="continueWithWinOrLose('L')">MIT VERLUST WEITER</button>
+                </div>
+                <button onclick="newGame()" class="filled">NEUES SPIEL</button>
+            </div>`
+    }
+}
 //endregion
 
 /***** Normal ITN Rechner *****/
@@ -100,6 +301,7 @@ function calcItnSingle(p1, p2, sik1, sik2, hasRetired){
         }
     }
 
+    calculatedITNs = checkedLimits(calculatedITNs)
     return calculatedITNs;
 }
 
@@ -136,7 +338,18 @@ function calcItnDoubles(p1, p2, p3, p4, hasRetired){
             delta1.toFixed(3), delta2.toFixed(3)
         ]
     }
+
+    calculatedITNs = checkedLimits(calculatedITNs)
     return calculatedITNs;
+}
+
+function checkedLimits(itnList){
+    for(let i = 0; i < itnList.length; i++){
+        if(itnList[i] < 1.5){
+            itnList[i] = 1.500.toFixed(3)
+        }
+    }
+    return itnList
 }
 
 function toggleActiveSD(elem){

@@ -30,7 +30,6 @@ body {
 
 main {
   display: flex;
-  height: 100vh;
   flex-direction: column;
   justify-content: space-between;
 }
@@ -63,10 +62,10 @@ button.outlined {
   color: #CA502A;
 }
 button.outlined:hover {
-  filter: brightness(90%);
+  filter: brightness(95%);
 }
 
-div.calcButtons {
+main section.normal div.calcButtons {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15vh;
@@ -80,32 +79,27 @@ div.calcButtons {
     margin-inline: 0.5rem;
   }
 }
-@media screen and (max-width: 950px) {
-  div.calcButtons {
-    width: 80%;
-  }
-}
-@media screen and (max-width: 700px) {
-  div.calcButtons {
+@media screen and (max-width: 1000px) {
+  main section.normal div.calcButtons {
+    width: 100%;
+    padding: 1rem;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    gap: 1rem;
+    background: var(--gray100, #FFF);
+    box-shadow: 0px -4px 4px 0px rgba(0, 0, 0, 0.1);
   }
-  div.calcButtons button {
-    margin-block: 0.5rem;
-    width: 30vw;
-  }
-  div.calcButtons div {
+  main section.normal div.calcButtons div {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+  }
+  main section.normal div.calcButtons button {
+    flex-grow: 1;
   }
 }
 section:not(.active) {
   display: none;
-}
-
-main > section {
-  height: 100%;
-  width: 100%;
 }
 
 aside {
@@ -116,8 +110,8 @@ aside {
   align-items: center;
   justify-content: center;
   color: white;
-  width: 20vw;
   height: 100vh;
+  width: 20vw;
   background: url(" img/sand.jpg");
 }
 
@@ -135,39 +129,35 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80vw;
-  height: 5.5vh;
-  background-color: #EDEDED;
+  width: 100%;
+  background-color: hsl(0, 0%, 90%);
 }
 nav i {
-  color: #757575;
+  color: hsl(0, 0%, 30%);
   cursor: pointer;
   font-size: 1.5rem;
   padding-inline: 2rem;
 }
 nav .fa-info {
-  border: 2px solid #BDBDBD;
+  border: 2px solid hsl(0, 0%, 30%);
   border-radius: 50%;
   padding: 0.5rem 1rem;
   margin-right: 1rem;
 }
 nav .buttons {
   display: flex;
-  height: 100%;
   align-items: end;
 }
 nav .buttons p {
   font-weight: 700;
-  border: 2px solid #BDBDBD;
-  background-color: #E7E7E7;
-  border-top-right-radius: 0.5rem;
-  border-top-left-radius: 0.5rem;
+  border: 1px solid hsl(0, 0%, 60%);
+  background-color: transparent;
   cursor: pointer;
   padding: 0.5rem 5rem;
   transition: all 0.2s ease;
 }
 nav .buttons p.active {
-  background-color: #FBFBFB;
+  background-color: hsl(0, 0%, 100%);
 }
 
 @media screen and (max-width: 1350px) {
@@ -175,14 +165,31 @@ nav .buttons p.active {
     width: 100%;
   }
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
   nav {
-    display: none;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   }
-}
-main section.normal {
-  height: 100%;
-  width: 100%;
+  nav .buttons {
+    width: 100%;
+  }
+  nav .buttons p {
+    text-align: center;
+    flex-grow: 1;
+    font-weight: 600;
+    border: none;
+    border-right: 1px solid hsl(0, 0%, 90%);
+    border-left: 1px solid hsl(0, 0%, 90%);
+    border-radius: 0;
+    cursor: pointer;
+    padding: 0.5rem 2rem;
+  }
+  nav .buttons p.active {
+    background-color: #CA502A;
+    color: hsl(0, 0%, 100%);
+  }
+  nav i {
+    display: none !important;
+  }
 }
 main section.normal > div {
   display: flex;
@@ -194,8 +201,8 @@ section.box {
   flex-direction: row;
   width: 50%;
   margin-block: 7vw;
-  border: 2px solid #CCCCCC;
-  background-color: #FAFAFA;
+  border: 2px solid hsl(0, 0%, 60%);
+  background-color: hsl(0, 0%, 100%);
   border-radius: 1rem;
   padding: 5rem;
 }
@@ -209,32 +216,31 @@ section.box > div {
   align-items: center;
 }
 
-section.box div.leftSide {
+div.leftSide {
   margin-top: 1.5rem;
   border-right: 2px solid #CA502A;
 }
 
-section.box div.leftSide div.switch {
+div.switch {
   display: flex;
   margin-top: 2rem;
 }
-section.box div.leftSide div.switch p {
+div.switch p {
   margin-right: 1rem;
-  background-color: #EDEDED;
-  color: #868686;
+  background-color: hsl(0, 0%, 90%);
+  color: hsl(0, 0%, 30%);
   padding: 0.2rem 1rem;
   cursor: pointer;
   border-radius: 0.5rem;
   transition: 0.2s all ease;
   font-weight: 500;
 }
-section.box div.leftSide div.switch p:hover {
-  background-color: #CBCBCB;
-  color: #404040;
+div.switch p:hover {
+  background-color: hsl(0, 0%, 80%);
 }
-section.box div.leftSide div.switch p.active {
-  background-color: #CBCBCB;
-  color: #404040;
+div.switch p.active {
+  background-color: hsl(0, 0%, 40%);
+  color: hsl(0, 0%, 100%);
 }
 
 section.box div.rightSide {
@@ -248,7 +254,7 @@ section.box div.rightSide h1 {
 }
 section.box div.rightSide h1, section.box div.rightSide h2 {
   font-size: 1.4rem;
-  color: #868686;
+  color: hsl(0, 0%, 60%);
   font-weight: 500;
 }
 section.box div.rightSide p {
@@ -260,13 +266,13 @@ section.box div.rightSide p {
 .itnField {
   display: flex;
   width: 15vw;
-  background-color: #EDEDED;
-  color: #BDBDBD;
+  color: hsl(0, 0%, 90%);
+  border: 1px solid hsl(0, 0%, 60%);
   border-radius: 0.5rem;
   margin: 0.2rem;
 }
 .itnField input, .itnField select {
-  font-size: 1.2rem;
+  font-size: 1rem;
   background: transparent;
   outline: none;
   border: none;
@@ -279,36 +285,22 @@ section.box div.rightSide p {
   margin-right: 0.2rem;
 }
 
-@media screen and (max-width: 900px) {
-  section.box {
-    margin-top: 5rem;
-    padding: 1rem;
-  }
-  section.box div.leftSide div.switch {
+@media screen and (max-width: 1000px) {
+  main section.normal {
+    display: flex;
     flex-direction: column;
+    align-items: center;
   }
-  section.box div.leftSide div.switch p {
-    margin-block: 0.2rem;
-  }
-  section.box div.rightSide {
-    grid-template-columns: 0.8fr 1fr;
-  }
-  section.box div.rightSide p {
-    font-size: 1.1rem;
-  }
-  .itnField input, .itnField select {
-    font-size: 0.8rem;
-  }
-}
-@media screen and (max-width: 600px) {
   section.box {
     border: none;
-    background-color: #FAFAFA;
-    border-radius: 1rem;
-    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
   }
-  section.box > div {
-    padding: 2rem 1rem;
+  section.box .itnField {
+    width: 90%;
+    padding: 0.2rem;
+    flex-direction: row;
   }
 }
 section.meisterschaft {
@@ -325,7 +317,7 @@ section.meisterschaft .header input {
   width: 3vw;
   text-align: center;
   border: none;
-  border-bottom: 1px solid #868686;
+  border-bottom: 1px solid hsl(0, 0%, 90%);
 }
 section.meisterschaft button {
   margin-top: 2vh;
