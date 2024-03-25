@@ -1,63 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>ITN Rechner</title>
-  <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
-  <link rel="stylesheet" href="style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="script.js" defer></script>
-  <script src="https://kit.fontawesome.com/557f0c19d3.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <title>ITN Rechner</title>
+    <script src="script.js" defer></script>
+    <script src="https://kit.fontawesome.com/557f0c19d3.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <aside>
-    <h2>ITN RECHNER</h2>
-  </aside>
+    <main>
+        <div class="toggle">
+            <p class="active" onclick="selectSingleOrDoubleMode(this)">Einzel</p>
+            <p onclick="selectSingleOrDoubleMode(this)">Doppel</p>
+        </div>
 
-  <main>
+        <div class="itnFields">
+            <div class="itnField">
+                <input type="text" placeholder="10.000">
+                <select name="sik" id="sikSelect1">
+                    <option value="Sicher">Sicher</option>
+                    <option value="Nicht Sicher">Nicht Sicher</option>
+                </select>
+            </div>
+
+            <div class="itnField">
+                <input type="text" placeholder="10.000">
+                <select name="sik" id="sikSelect2">
+                    <option value="Sicher">Sicher</option>
+                    <option value="Nicht Sicher">Nicht Sicher</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="changedITNField winner">
+            <header>
+                <p>Sieg für dich</p>
+                <button class="outlined" onclick="continueWithWinOrLose(this)">weiter Rechnen</button>
+            </header>
+            <div class="rows"></div>
+        </div>
+
+        <div class="changedITNField loser">
+            <header>
+                <p>Niederlage</p>
+                <button class="outlined" onclick="continueWithWinOrLose(this)">weiter Rechnen</button>
+            </header>
+            <div class="rows"></div>
+        </div>
+
+        <button class="filled" onclick="newGame()">neues Spiel</button>
+    </main>
+
     <nav>
-      <i class="fa-solid fa-arrow-left"></i>
-
-      <div class="buttons">
-        <p onclick="selectNavigation(this)" class="active">NORMAL</p>
-        <p onclick="selectNavigation(this)">TURNIER</p>
-        <p onclick="selectNavigation(this)">MEISTERSCHAFT</p>
-      </div>
-
-      <i class="fa-solid fa-info"></i>
+        <div class="item active">
+            <i class="fa-solid fa-calculator"></i>
+            <p>Normal</p>
+        </div>
+        <div class="item">
+            <i class="fa-solid fa-trophy"></i>
+            <p>Turnier</p>
+        </div>
+        <div class="item">
+            <i class="fa-solid fa-baseball"></i>
+            <p>Cup</p>
+        </div>
     </nav>
-
-    <section class="normal active">
-
-    </section>
-
-
-    <section class="turnier">
-      <select name="tournamentMode" id="tournamentMode" onchange="updateTournamentDraw()">
-        <option value="8">8er Raster</option>
-        <option value="16">16er Raster</option>
-        <option value="32">32er Raster</option>
-      </select>
-
-      <div class="tournamentDraw"></div>
-    </section>
-
-
-    <section class="meisterschaft">
-      <div class="header">
-        <h1>EINZEL</h1>
-        <input type="number" id="einzelAnz" value="6" onchange="updateGamesChampionship(0)">
-      </div>
-      <div class="box singleM"></div>
-
-      <div class="header">
-        <h1>DOPPEL</h1>
-        <input type="number" id="doppelAnz" value="3" onchange="updateGamesChampionship(1)">
-      </div>
-      <div class="box doubleM"></div>
-
-      <button onclick="newGame()" class="filled">BERECHNEN</button>
-    </section>
-  </main>
 </body>
 </html>

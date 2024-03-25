@@ -1,267 +1,103 @@
-/***** General *****/
-//region general
-let currMode = "NORMAL"
+let activeType = "S"
+let amountOfFields = 2
+let itns = []
+let deltas = []
+let names = ["Deine ITN", "Partner ITN", "Gegner ITN", "Gegner ITN 2"]
 
-function selectNavigation(elem){
-    document.querySelector("nav .buttons .active").classList.remove("active")
+selectSingleOrDoubleMode(document.querySelector(".toggle p.active"))
+function selectSingleOrDoubleMode(elem){
+    elem.closest(".toggle").querySelector(".active").classList.remove("active")
     elem.classList.add("active")
-    currMode = elem.innerHTML
 
-    document.querySelector("main > section.active").classList.remove("active")
-    document.querySelector(`section.${currMode.toLowerCase()}`).classList.add("active")
-}
-
-let mediaQuery = window.matchMedia("(max-width: 1000px)");
-loadNormal();
-mediaQuery.addEventListener("change", function() {
-    loadNormal();
-});
-function loadNormal() {
-    if(!mediaQuery.matches){
-        document.querySelector("section.normal").innerHTML = `      
-      <div>
-        <section class="box single active">
-          <div class="leftSide">
-            <div class="itnField">
-              <input type="number" class="sITN" placeholder="Deine ITN">
-              <select name="sik1" id="sikS1" onchange="handleChanges()">
-                <option value="true">Sicher</option>
-                <option value="false">Nicht Sicher</option>
-              </select>
-            </div>
-            <div class="itnField">
-              <input type="number" placeholder="ITN Gegner">
-              <select name="sik2" id="sikS2" onchange="handleChanges()">
-                <option value="true">Sicher</option>
-                <option value="false">Nicht Sicher</option>
-              </select>
-            </div>
-
-            <div class="switch">
-              <p class="active" onclick="toggleActiveSD(this)">EINZEL</p>
-              <p onclick="toggleActiveSD(this)">DOPPEL</p>
-            </div>
-          </div>
-
-          <div class="rightSide">
-            <h2>SIEG</h2>
-            <h2>NIEDERLAGE</h2>
-            <p class="sW">0.00</p><p class="sL">0.00</p>
-            <p>0.00</p><p>0.00</p>
-            <br><span></span>
-            <h1>VERÄNDERUNG</h1>
-            <p>0.00</p>
-            <p>0.00</p>
-          </div>
-        </section>
-
-        <section class="box double">
-          <div class="leftSide">
-            <div class="itnField">
-              <input type="number" class="dITN" placeholder="Deine ITN">
-            </div>
-            <div class="itnField">
-              <input type="number" placeholder="ITN Gegner">
-            </div>
-            <div class="itnField">
-              <input type="number" placeholder="ITN Gegner">
-            </div>
-            <div class="itnField">
-              <input type="number" placeholder="ITN Gegner">
-            </div>
-
-            <div class="switch">
-              <p onclick="toggleActiveSD(this)">EINZEL</p>
-              <p class="active" onclick="toggleActiveSD(this)">DOPPEL</p>
-            </div>
-          </div>
-
-          <div class="rightSide">
-            <h2>SIEG</h2>
-            <h2>NIEDERLAGE</h2>
-            <p class="dW">0.00</p><p class="dL">0.00</p>
-            <p>0.00</p><p>0.00</p>
-            <p>0.00</p><p>0.00</p>
-            <p>0.00</p><p>0.00</p>
-            <br><span></span>
-            <h1>VERÄNDERUNG</h1>
-            <p>0.00</p>
-            <p>0.00</p>
-          </div>
-        </section>
-      </div>
-
-      <div class="calcButtons">
-        <div>
-          <button class="outlined" onclick="continueWithWinOrLose('W')">MIT SIEG WEITER</button>
-          <button class="outlined" onclick="continueWithWinOrLose('L')">MIT VERLUST WEITER</button>
-        </div>
-        <button onclick="newGame()" class="filled">NEUES SPIEL</button>
-      </div>`
-    } else{
-        document.querySelector("section.normal").innerHTML = `      
-            <div class="switch">
-              <p class="active" onclick="toggleActiveSD(this)">EINZEL</p>
-              <p onclick="toggleActiveSD(this)">DOPPEL</p>
-            </div>
-            
-            <section class="box single active">
-                <div class="itnField">
-                  <input type="number" class="sITN" placeholder="Deine ITN">
-                  <select name="sik1" id="sikS1" onchange="handleChanges()">
-                    <option value="true">Sicher</option>
-                    <option value="false">Nicht Sicher</option>
-                  </select>
-                </div>
-                <div class="itnField">
-                  <input type="number" placeholder="ITN Gegner">
-                  <select name="sik2" id="sikS2" onchange="handleChanges()">
-                    <option value="true">Sicher</option>
-                    <option value="false">Nicht Sicher</option>
-                  </select>
-                </div>
-    
-                <div class="itnBox">
-                    <h2>SIEG</h2>
-                    <div class="itnResult">       
-                        <div class="yourITN">
-                            <h4>Deine ITN</h4>
-                            <p class="sW">0.00</p>
-                        </div>
-                        <div class="opponentITN">
-                            <h4>Gegner ITN</h4>
-                            <p class="gW">0.00</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="itnBox">
-                    <h2>NIEDERLAGE</h2>
-                    <div class="itnResult">       
-                        <div class="yourITN">
-                            <h4>Deine ITN</h4>
-                            <p class="sL">0.00</p>
-                        </div>
-                        <div class="opponentITN">
-                            <h4>Gegner ITN</h4>
-                            <p class="gL">0.00</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section class="box double">
-                <div class="itnField">
-                  <input type="number" class="dITN" placeholder="Deine ITN">
-                </div>
-                <div class="itnField">
-                  <input type="number" placeholder="ITN Gegner">
-                </div>
-                <div class="itnField">
-                  <input type="number" placeholder="ITN Gegner">
-                </div>
-                <div class="itnField">
-                  <input type="number" placeholder="ITN Gegner">
-                </div>
-    
-                <div class="itnBox">
-                    <h2>SIEG</h2>
-                    <div class="itnResult">       
-                        <div class="yourITN">
-                            <h4>Deine ITN</h4>
-                            <p>0.00</p>
-                            <h4>Deine ITN</h4>
-                            <p>0.00</p>
-                        </div>
-                        <div class="opponentITN">
-                            <h4>Gegner ITN</h4>
-                            <p>0.00</p>
-                            <h4>Gegner ITN</h4>
-                            <p>0.00</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="itnBox">
-                    <h2>NIEDERLAGE</h2>
-                    <div class="itnResult">       
-                        <div class="yourITN">
-                            <h4>Deine ITN</h4>
-                            <p>0.00</p>
-                            <h4>Deine ITN</h4>
-                            <p>0.00</p>
-                        </div>
-                        <div class="opponentITN">
-                            <h4>Gegner ITN</h4>
-                            <p>0.00</p>
-                            <h4>Gegner ITN</h4>
-                            <p>0.00</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-
-            <div class="calcButtons">
-                <div>
-                  <button class="outlined" onclick="continueWithWinOrLose('W')">MIT SIEG WEITER</button>
-                  <button class="outlined" onclick="continueWithWinOrLose('L')">MIT VERLUST WEITER</button>
-                </div>
-                <button onclick="newGame()" class="filled">NEUES SPIEL</button>
-            </div>`
+    amountOfFields = 2
+    activeType = "S"
+    if(elem.innerHTML === "Doppel") {
+        amountOfFields = 4;
+        activeType = "D";
     }
-}
-//endregion
 
-/***** Normal ITN Rechner *****/
-//region normal itn rechner
-let activeType = "s" // s or d for single or double
+    let itnFields = ""
+    let rows = ""
+    for (let i = 0; i < amountOfFields; i++) {
+        itnFields += `<div class="itnField">
+                        <input type="text" placeholder="10.000" value="${itns[i] || ''}">
+                        <select name="sik" id="sikSelect1">
+                            <option value="Sicher">Sicher</option>
+                            <option value="Nicht Sicher">Nicht Sicher</option>
+                        </select>
+                 </div>`
+    }
+    document.querySelector(".itnFields").innerHTML = itnFields
+    document.querySelector(".changedITNField.winner .rows").innerHTML = rows
+    document.querySelector(".changedITNField.loser .rows").innerHTML = rows
 
-document.querySelectorAll("input").forEach((elem) => {
-    elem.addEventListener("keyup", function (event) {
-        handleChanges()
+    document.querySelectorAll("input, select").forEach((elem) => {
+        elem.addEventListener("keyup", function (event) {
+            handleChanges()
+        })
+
+        elem.addEventListener("change", function (event) {
+            handleChanges()
+        })
     })
-})
+
+    handleChanges()
+}
 
 function handleChanges(){
-    let types = ["single", "double"]
-    let itns = []
+    itns = []
     let siks = []
     let hasRetired;
-    for (let i = 0; i < types.length; i++) {
-        if(document.querySelector(`.${types[i]}`).classList.contains("active")){
 
-            let areAllInputsFilled = true;
-            document.querySelectorAll(`.${types[i]} input`).forEach((elem) => {
-                itns.push(elem.value)
-                if(elem.value === ""){
-                    areAllInputsFilled = false;
-                }
-            })
-
-            document.querySelectorAll(`.${types[i]} select`).forEach((elem) => {
-                siks.push(elem.selectedOptions[0].label);
-            })
-
-            if(areAllInputsFilled){
-                let calculatedITNS
-                if(types[i] === "single"){
-                    calculatedITNs = calcItnSingle(itns[0], itns[1], siks[0], siks[1], hasRetired)
-                } else {
-                    calculatedITNs = calcItnDoubles(itns[0], itns[1], itns[2], itns[3], hasRetired)
-                }
-
-                let count = 0;
-                document.querySelectorAll(`.${types[i]} .rightSide p`).forEach((elem) => {
-                    elem.innerHTML = calculatedITNs[count++]
-                })
-            }
+    let areAllInputsFilled = true;
+    document.querySelectorAll(`input`).forEach((elem) => {
+        itns.push(elem.value)
+        if(elem.value === ""){
+            areAllInputsFilled = false;
         }
+    })
+
+    document.querySelectorAll(`select`).forEach((elem) => {
+        siks.push(elem.selectedOptions[0].label);
+    })
+
+    if (areAllInputsFilled) {
+        let calculatedITNs
+        if (activeType === "S") {
+            calculatedITNs = calcItnSingle(itns[0], itns[1], siks[0], siks[1], hasRetired)
+        } else {
+            calculatedITNs = calcItnDoubles(itns[0], itns[1], itns[2], itns[3], hasRetired)
+        }
+
+        let count = 0;
+        let winner = ""
+        let loser = ""
+
+        let winnerCount = 0
+        let loserCount = 0
+
+        calculatedITNs.forEach(elem => {
+            if(count < amountOfFields){
+                winner += `<div class="row">
+                        <p>${activeType === "D" ? names[winnerCount++] : names[(winnerCount++)*2]} (${deltas[count].toFixed(3)})</p>
+                        <p>${elem}</p>
+                    </div>`
+            } else{
+                loser += `<div class="row">
+                        <p>${activeType === "D" ? names[loserCount++] : names[(loserCount++)*2]} (${deltas[count].toFixed(3)})</p>
+                        <p>${elem}</p>
+                    </div>`
+            }
+            count++
+        })
+
+        document.querySelector(".winner .rows").innerHTML = winner
+        document.querySelector(".loser .rows").innerHTML = loser
     }
+
 }
 
 /**
- *
  * @param p1 Player 1
  * @param p2 Player 2
  * @param sik1 Sik of player 1
@@ -287,22 +123,23 @@ function calcItnSingle(p1, p2, sik1, sik2, hasRetired){
         let delta2 = 0.250 / (1.000 + 2.595 * Math.exp(3.500*x2))
 
         // Add delta
-        calculatedITNs.push((p1-delta1*[sik1 < sik2 ? 2 : (sik1 > sik2 ? 0.5 : 1)]).toFixed(3));
-        calculatedITNs.push((p1+delta2*[sik2 > sik1 ? 2 : (sik2 < sik1 ? 0.5 : 1)]).toFixed(3));
-        calculatedITNs.push((p2+delta1*[sik1 > sik2 ? 2 : (sik1 < sik2 ? 0.5 : 1)]).toFixed(3));
-        calculatedITNs.push((p2-delta2*[sik2 < sik1 ? 2 : (sik2 > sik1 ? 0.5 : 1)]).toFixed(3));
-
-        if(sik1 !== sik2){
-            calculatedITNs.push((delta1*[sik1 < sik2 ? 2 : (sik1 > sik2 ? 0.5 : 1)]).toFixed(3) + "/" + (delta1*[sik1 > sik2 ? 2 : (sik1 < sik2 ? 0.5 : 1)]).toFixed(3))
-            calculatedITNs.push((delta1*[sik1 > sik2 ? 2 : (sik1 < sik2 ? 0.5 : 1)]).toFixed(3) + "/" + (delta1*[sik1 < sik2 ? 2 : (sik1 > sik2 ? 0.5 : 1)]).toFixed(3))
-        } else{
-            calculatedITNs.push(delta1.toFixed(3))
-            calculatedITNs.push(delta2.toFixed(3))
+        if(sik1 < sik2) {
+            deltas = [-(delta1*2), +(delta1/2), +(delta2*2), -(delta2/2)]
+        } else if(sik1 > sik2) {
+            deltas = [-(delta1/2), +(delta1*2), +(delta2/2), -(delta2*2)]
+        } else {
+            deltas = [-delta1, +delta1, +delta2, -delta2]
         }
+
+        calculatedITNs = [
+            (p1-delta1*[sik1 < sik2 ? 2 : (sik1 > sik2 ? 0.5 : 1)]).toFixed(3),
+            (p2+delta1*[sik2 < sik1 ? 2 : (sik2 > sik1 ? 0.5 : 1)]).toFixed(3),
+            (p1+delta2*[sik2 > sik1 ? 2 : (sik2 < sik1 ? 0.5 : 1)]).toFixed(3),
+            (p2-delta2*[sik1 > sik2 ? 2 : (sik1 < sik2 ? 0.5 : 1)]).toFixed(3)
+        ]
     }
 
-    calculatedITNs = checkedLimits(calculatedITNs)
-    return calculatedITNs;
+    return checkedLimits(calculatedITNs);
 }
 
 /**
@@ -322,21 +159,28 @@ function calcItnDoubles(p1, p2, p3, p4, hasRetired){
     } else{
         p1-=0;p2-=0;p3-=0;p4-=0;
 
-        let x1 = (p1+p2) - (p3+p4); // Team 2 is winner
-        let x2 = (p3+p4) - (p1+p2); // Team 1 is winner
+        let x1 = (p1+p3) - (p2+p4); // Team 2 is winner
+        let x2 = (p2+p4) - (p1+p3); // Team 1 is winner
 
         // Calculate delta
         let delta1 = (0.250 / (1.000 + 2.595 * Math.exp(3.500*x1))) * 0.25
         let delta2 = (0.250 / (1.000 + 2.595 * Math.exp(3.500*x2))) * 0.25
 
+        deltas = [-delta1, -delta1, +delta1, +delta1, +delta2, +delta2, -delta2, -delta2]
+
         // Add Delta
         calculatedITNs = [
+            (p1-delta1).toFixed(3), (p3-delta1).toFixed(3),
+            (p2+delta1).toFixed(3), (p4+delta1).toFixed(3),
+            (p1+delta1).toFixed(3), (p3+delta2).toFixed(3),
+            (p2-delta1).toFixed(3), (p4-delta2).toFixed(3)
+        ]
+        /**calculatedITNs = [
             (p1-delta1).toFixed(3), (p1+delta2).toFixed(3),
             (p2-delta1).toFixed(3), (p2+delta2).toFixed(3),
             (p3+delta1).toFixed(3), (p3-delta2).toFixed(3),
-            (p4+delta1).toFixed(3), (p4-delta2).toFixed(3),
-            delta1.toFixed(3), delta2.toFixed(3)
-        ]
+            (p4+delta1).toFixed(3), (p4-delta2).toFixed(3)
+        ]**/
     }
 
     calculatedITNs = checkedLimits(calculatedITNs)
@@ -352,111 +196,22 @@ function checkedLimits(itnList){
     return itnList
 }
 
-function toggleActiveSD(elem){
-    console.log(elem)
-    let itn1 = elem.closest(".leftSide").querySelectorAll("input")[0].value
-    let itn2 = elem.closest(".leftSide").querySelectorAll("input")[activeType === "s" ? 1 : 2].value
-
-    console.log(itn1, itn2)
-    if(elem.innerHTML === "EINZEL"){
-        activeType = "s"
-        document.querySelector(".single").classList.add("active")
-        document.querySelector(".single").querySelectorAll("input")[0].value = itn1;
-        document.querySelector(".single").querySelectorAll("input")[1].value = itn2;
-        document.querySelector(".double").classList.remove("active")
-    } else{
-        activeType = "d"
-        document.querySelector(".single").classList.remove("active")
-        document.querySelector(".double").classList.add("active")
-        document.querySelector(".double").querySelectorAll("input")[0].value = itn1;
-        document.querySelector(".double").querySelectorAll("input")[2].value = itn2;
-    }
-}
-
 function newGame(){
-    document.querySelectorAll("input").forEach((elem) => {
-        elem.value = ""
+    itns=[]
+    selectSingleOrDoubleMode(document.querySelector(".toggle p.active"))
+}
+
+function continueWithWinOrLose(elem){
+    itns=[]
+
+    let count = 1
+    elem.closest(".changedITNField").querySelectorAll(".row p:last-child").forEach(elem => {
+        if(count++ % 2 !== 0){
+            itns.push(elem.innerHTML)
+        } else{
+            itns.push(null)
+        }
     })
+
+    selectSingleOrDoubleMode(document.querySelector(".toggle p.active"))
 }
-
-function continueWithWinOrLose(wOl){
-    let newITN = document.querySelector(`.${activeType}${wOl}`).innerHTML
-    newGame();
-    document.querySelector(`.${activeType}ITN`).value = newITN
-}
-//endregion
-
-/***** Tournament ITN Rechner *****/
-//region tournament itn rechner
-updateTournamentDraw()
-function updateTournamentDraw(){
-    let tournamentBox = document.querySelector(".tournamentDraw")
-    tournamentBox.innerHTML = ""
-
-    let currMatches = document.querySelector("#tournamentMode").value
-    while(currMatches/2 >= 1){
-        currMatches = currMatches / 2
-        let temp = "<div>"
-        for (let i = 0; i < currMatches; i++) {
-            temp += "<div>"
-            for (let j = 0; j < 2; j++) {
-                temp += "<div class=\"itnField\">" +
-                    "<input type=\"number\" class=\"sITN\" placeholder=\"Deine ITN\">" +
-                    "<select name=\"sik1\" id=\"sikS1\" onchange=\"handleChanges()\">" +
-                    "    <option value=\"true\">Sicher</option>" +
-                    "    <option value=\"false\">Nicht Sicher</option>" +
-                    "</select>" +
-                    "</div>"
-            }
-            temp += "</div>"
-        }
-        temp += "</div>"
-        tournamentBox.innerHTML += temp
-    }
-
-}
-//endregion
-
-/***** Championship ITN Rechner *****/
-//region championship itn rechner
-updateGamesChampionship(null)
-function updateGamesChampionship(type){ // type: 0 == SINGLE | 1 == DOUBLE
-    if(type === 0 || type === null){
-        let singleBox = document.querySelector(".singleM")
-        singleBox.innerHTML = ""
-        for (let i = 0; i < document.querySelector("#einzelAnz").value; i++) {
-            let temp = "<div>"
-            for (let j = 0; j < 2; j++) {
-                temp += "<div class=\"itnField\">" +
-                    "<input type=\"number\" class=\"sITN\" placeholder=\"Deine ITN\">" +
-                    "<select name=\"sik1\" id=\"sikS1\" onchange=\"handleChanges()\">" +
-                    "    <option value=\"true\">Sicher</option>" +
-                    "    <option value=\"false\">Nicht Sicher</option>" +
-                    "</select>" +
-                    "</div>"
-            }
-            temp += "</div>"
-            singleBox.innerHTML += temp
-        }
-    }
-
-    if(type === 1 || type === null){
-        let doubleBox = document.querySelector(".doubleM")
-        doubleBox.innerHTML = ""
-        for (let i = 0; i < document.querySelector("#doppelAnz").value; i++) {
-            let temp = "<div>"
-            for (let j = 0; j < 2; j++) {
-                temp += "<div class='doublePair'>"
-                for (let k = 0; k < 2; k++) {
-                    temp += "<div class=\"itnField\">" +
-                            "<input type=\"number\" class=\"sITN\" placeholder=\"Deine ITN\">" +
-                        "</div>"
-                }
-                temp += "</div>"
-            }
-            temp += "</div>"
-            doubleBox.innerHTML += temp
-        }
-    }
-}
-//endregion

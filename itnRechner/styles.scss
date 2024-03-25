@@ -1,0 +1,219 @@
+// General
+//region general
+@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap');
+
+$primary: #FF661A;
+$primary-dark: #E54D00;
+$primary-light: #FF884D;
+$gray100: hsla(0, 0%, 100%, 1);
+$gray200: hsla(0, 0%, 90%, 1);
+$gray300: hsla(0, 0%, 80%, 1);
+$gray400: hsla(0, 0%, 70%, 1);
+$gray500: hsla(0, 0%, 60%, 1);
+$gray600: hsla(0, 0%, 50%, 1);
+$gray700: hsla(0, 0%, 40%, 1);
+$gray800: hsla(0, 0%, 30%, 1);
+$gray900: hsla(0, 0%, 20%, 1);
+$gray1000: hsla(0, 0%, 10%, 1);
+$gray1050: hsla(0, 0%, 5%, 1);
+$gray1100: hsla(0, 0%, 0%, 1);
+
+* {
+  font-family: "Sen", sans-serif;
+  font-weight: 400;
+  background-color: $gray1000;
+  color: $gray100;
+  padding: 0;
+  margin: 0;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+main{
+  display: flex;
+  padding: 2rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+@media only screen and (min-width: 1200px){
+  main {
+    padding: 2rem 24rem;
+  }
+}
+//endregion
+
+// Navigation
+//region nav
+nav{
+  display: flex;
+  margin-top: auto;
+  padding: 1rem 3rem;
+  justify-content: space-around;
+  background: rgba(51, 51, 51, 0.75);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  div.item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    background: transparent;
+
+    p, i{
+      background: transparent;
+    }
+
+    p{
+      font-size: .875rem;
+      margin-top: .1rem;
+    }
+    i{
+      font-size: 1.75rem;
+    }
+
+    &.active p, &.active i{
+      color: $primary;
+    }
+  }
+}
+//endregion
+
+// Buttons
+//region button
+button{
+  display: flex;
+  padding: .25rem .5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  align-self: stretch;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  background: transparent;
+
+  &.filled{
+    border-radius: 0.5rem;
+    background: var(--primary-dark, #E54D00);
+    padding: .5rem;
+  }
+
+  &.outlined{
+    border-radius: 0.25rem;
+    border: 1px solid var(--primary-dark, #E54D00);
+    color: var(--primary-dark, #E54D00);
+  }
+}
+//endregion
+
+// ITN Fields
+//region itn fields
+div.itnFields{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .25rem 1rem;
+  width: 100%;
+}
+
+div.itnField{
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(204, 204, 204, 0.10);
+  background: rgba(204, 204, 204, 0.10);
+  backdrop-filter: blur(2px);
+  padding-right: 1rem;
+
+  input, select{
+    background: none;
+  }
+
+  input{
+    width: 60%;
+    padding: 0.5rem 1rem;
+    border: none;
+    outline: none;
+    font-size: 1.5rem;
+  }
+
+  select{
+    width: 40%;
+    font-size: .75rem;
+    padding: 0.125rem 0rem;
+    outline: none;
+    border-bottom: 1px solid white;
+  }
+}
+
+@media only screen and (min-width: 1200px){
+  div.itnField select{
+    font-size: 1rem;
+  }
+}
+//endregion
+
+//region
+div.toggle{
+  display: flex;
+  width: fit-content;
+  border-radius: .25rem;
+  border: 1px solid $gray900;
+
+  p{
+    padding: .25rem 1rem;
+    cursor: pointer;
+
+    &.active{
+      background-color: $primary-dark;
+    }
+  }
+}
+
+div.changedITNField{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  border-radius: 0.5rem;
+  border: 1px solid $gray900;
+
+  header{
+    display: flex;
+    padding: 0.5rem 1rem;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    background: $gray900;
+
+    p{
+      background: transparent;
+    }
+  }
+
+  .rows{
+    width: 100%;
+
+    .row{
+      display: flex;
+      padding: 0.5rem 1rem;
+      justify-content: space-between;
+      align-items: flex-start;
+      align-self: stretch;
+      border-bottom: 1px solid $gray900;
+    }
+
+    .row:last-child{
+      border-bottom: none;
+    }
+  }
+}
+//endregion
