@@ -53,12 +53,34 @@ main{
 // Navigation
 //region nav
 nav{
-  display: flex;
+  display: none;
   margin-top: auto;
   padding: 1rem 3rem;
-  justify-content: space-around;
+  justify-content: space-evenly;
   background: rgba(51, 51, 51, 0.75);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  &.active{
+    display:flex;
+  }
+
+  &.desktop{
+    justify-content: center;
+    gap: 15rem;
+
+    div.item{
+      flex-direction: row;
+      gap: .5rem;
+
+      p{
+        font-size: 1rem;
+      }
+
+      i{
+        font-size: 1.5rem;
+      }
+    }
+  }
 
   div.item{
     display: flex;
@@ -84,6 +106,12 @@ nav{
     }
   }
 }
+
+@media only screen and (min-width: 600px){
+  nav{
+    justify-content: space-between;
+  }
+}
 //endregion
 
 // Buttons
@@ -99,6 +127,7 @@ button{
   font-weight: 600;
   font-size: 1rem;
   background: transparent;
+  cursor: pointer;
 
   &.filled{
     border-radius: 0.5rem;
@@ -164,6 +193,7 @@ div.itnField{
 //region
 div.toggle{
   display: flex;
+  overflow:hidden;
   width: fit-content;
   border-radius: .25rem;
   border: 1px solid $gray900;
@@ -217,3 +247,57 @@ div.changedITNField{
   }
 }
 //endregion
+
+.select {
+  position: relative;
+  padding: .5rem .5rem;
+  border-bottom: 1px solid $gray300;
+  background: none;
+  width: 10vw;
+
+  i{
+    color: $primary;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .select i{
+    display: none;
+  }
+}
+
+.selected {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  background: none;
+
+  *{
+    background: none;
+  }
+}
+
+.options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  overflow: hidden;
+  border: 1px solid $gray300;
+  border-bottom-left-radius: .5rem;
+  border-bottom-right-radius: .5rem;
+}
+
+.option {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.option:hover {
+  transition: .2s ease all;
+  background: $gray900;
+}
