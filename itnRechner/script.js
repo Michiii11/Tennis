@@ -26,7 +26,7 @@ function selectSingleOrDoubleMode(elem){
                 <p></p>
             </div>
             <div class="row">
-                <p>${names[1]} (0.000)</p>
+                <p>${names[2]} (0.000)</p>
                 <p></p>
             </div>
         `
